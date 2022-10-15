@@ -14,12 +14,14 @@ dependencies:
   flutter:
     sdk: flutter
 
+
   cupertino_icons: ^1.0.2
   fluro: ^2.0.3
   shared_preferences: ^2.0.15
   flutter_bloc: ^8.1.1
   flutter_secure_storage: ^6.0.0
   dartz: ^0.10.1
+  dependency_injector: ^0.1.0+2
 
 dev_dependencies:
   flutter_test:
@@ -30,3 +32,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/svg/
