@@ -17,7 +17,7 @@ class PlantyButton extends StatelessWidget {
       child: Center(
         child: Text(
           text,
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: AppColors.primaryWhite),
         ),
       ),
     );

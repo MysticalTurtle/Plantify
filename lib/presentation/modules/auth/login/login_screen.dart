@@ -15,8 +15,7 @@ class LoginScreen extends StatelessWidget {
         child: SafeArea(
           child: Container(
             color: AppColors.backgroundColor,
-            child: ListView(
-              
+            child: ListView(              
               padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 50),
               children: [
                 const Text("Plantify", style: TextStyles.kLoginTitle, textAlign: TextAlign.center,),

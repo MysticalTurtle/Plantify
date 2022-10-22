@@ -2,6 +2,24 @@ import 'package:flutter/material.dart';
 import 'app_colors.dart';
 
 class TextStyles {
+
+  // Onboarding
+  static const TextStyle onboardingTitle = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+    color: AppColors.primaryGreen,
+  );
+  static const TextStyle onboardingMainText = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.w400,
+    color: AppColors.primaryGreen,
+  );
+  static const TextStyle onboardingDescription = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: AppColors.darkGreen,
+  );
+
   static const kLoginTitle = TextStyle(
       fontSize: 40, color: AppColors.primaryGreen, fontWeight: FontWeight.w600);
   static const kSubtitleMayus = TextStyle(
@@ -14,4 +32,6 @@ class TextStyles {
       fontSize: 13,
       color: AppColors.blakOpacity04,
       fontWeight: FontWeight.w400);
+
+
 }

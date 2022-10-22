@@ -36,8 +36,8 @@ class CustomTextInput extends StatelessWidget {
     // }
     return Padding(
       padding: errorMessage == null
-          ? const EdgeInsets.fromLTRB(0, 8, 0, 33)
-          : const EdgeInsets.fromLTRB(0, 8, 0, 10),
+          ? const EdgeInsets.fromLTRB(0, 0, 0, 33)
+          : const EdgeInsets.fromLTRB(0, 0, 0, 10),
       child: TextFormField(
         controller: controller,
         onChanged: onChanged,

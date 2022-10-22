@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.recog_plantify">
    <application
-        android:label="recog_plantify"
+        android:label="RecogPlantify"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
