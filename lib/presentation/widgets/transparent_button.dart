@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:recog_plantify/core/constants/app_colors.dart';
 
-class PlantyButton extends StatelessWidget {
+class TransparentButton extends StatelessWidget {
   final String text;
   final Function? onPressed;
-  final bool isDark;
-  const PlantyButton({super.key, required this.text, this.onPressed, this.isDark = true});
+  const TransparentButton({super.key, required this.text, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: isDark? AppColors.primaryGreen: AppColors.lightGreen,
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(30.0),
       ),
       child: Center(
         child: Text(
           text,
-          style: const TextStyle(color: AppColors.primaryWhite),
+          style: const TextStyle(color: AppColors.primaryGreen),
         ),
       ),
     );

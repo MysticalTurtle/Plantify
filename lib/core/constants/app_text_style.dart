@@ -20,6 +20,28 @@ class TextStyles {
     color: AppColors.darkGreen,
   );
 
+  // Last Onboarding
+  static const TextStyle lastOnboardingGreen = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: AppColors.primaryGreen,
+  );
+  static const TextStyle lastOnboardingBlack = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: AppColors.primaryBlack,
+  );
+  static const TextStyle lastOnboardingGreen400 = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: AppColors.primaryGreen,
+  );
+  static const TextStyle lastOnboardingBlack400 = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: AppColors.primaryBlack,
+  );
+
   static const kLoginTitle = TextStyle(
       fontSize: 40, color: AppColors.primaryGreen, fontWeight: FontWeight.w600);
   static const kSubtitleMayus = TextStyle(

@@ -3,6 +3,7 @@ import 'package:recog_plantify/core/constants/app_colors.dart';
 import 'package:recog_plantify/core/constants/app_text_style.dart';
 import 'package:recog_plantify/presentation/widgets/light_button.dart';
 
+import 'onboarding_last_screen.dart';
 import 'widgets/dots.dart';
 
 class OnboardingThirdScreen extends StatelessWidget {
@@ -35,7 +36,6 @@ class OnboardingThirdScreen extends StatelessWidget {
               ),
               const Spacer(),
               const Dots(currentIndex: 3),
-              const SizedBox(height: 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -55,7 +55,7 @@ class OnboardingThirdScreen extends StatelessWidget {
                     text: "Continuar",
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => const OnboardingThirdScreen()),);
+                          builder: (context) => const OnboardingLastScreen()),);
                     },
                   ),
                 ],
