@@ -13,19 +13,21 @@ class CustomTextInput extends StatelessWidget {
   final String? errorMessage;
   final void Function(String)? onChanged;
   final TextEditingController? controller;
-  final int? maxLength;
+  final bool isPassword;
+  final String? Function(String?)? validator;
   const CustomTextInput({
     super.key,
     this.text,
     required this.hintText,
     this.currentNode,
     this.nextNode,
-    required this.isNumeric,
+    this.isNumeric = false,
     required this.autofocus,
     this.errorMessage,
     this.onChanged,
     this.controller,
-    this.maxLength = -1,
+    this.isPassword = false,
+    this.validator,
   });
 
   @override
@@ -39,10 +41,14 @@ class CustomTextInput extends StatelessWidget {
           ? const EdgeInsets.fromLTRB(0, 0, 0, 33)
           : const EdgeInsets.fromLTRB(0, 0, 0, 10),
       child: TextFormField(
+        obscureText: isPassword,
+        autocorrect: !isPassword,
+        enableSuggestions: !isPassword,
         controller: controller,
         onChanged: onChanged,
         autofocus: autofocus,
         keyboardType: isNumeric ? TextInputType.number : TextInputType.name,
+        validator: validator,
         decoration: InputDecoration(
           fillColor: AppColors.primaryWhite,
           filled: true,
@@ -64,10 +70,6 @@ class CustomTextInput extends StatelessWidget {
         onFieldSubmitted: (_) {
           FocusScope.of(context).requestFocus(nextNode);
         },
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(maxLength),
-          if (isNumeric) FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-        ],
       ),
     );
   }

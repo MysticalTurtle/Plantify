@@ -30,32 +30,35 @@ class OnboardingThirdScreen extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                    "No solo podrás identificar plantas, sino también su estado de salud actual. ¡Atento por si ves una alteración en tu planta favorita!",
+                    "Podrás conocer la salud de tus plantas. ¡Atento por si ves una alteración en tu planta favorita!",
                     textAlign: TextAlign.justify,
                     style: TextStyles.onboardingDescription),
               ),
               const Spacer(),
               const Dots(currentIndex: 3),
+              const SizedBox(height: 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Visibility (
+                  Visibility(
                     visible: false,
                     child: LightButton(
                       backgroundColor: Colors.transparent,
                       textColor: AppColors.darkGreen,
                       text: "Omitir",
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(
-                            builder: (context) => const OnboardingThirdScreen()),);
+                        Navigator.pushReplacementNamed(context, "onboarding4");
                       },
                     ),
                   ),
                   LightButton(
                     text: "Continuar",
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => const OnboardingLastScreen()),);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const OnboardingLastScreen()),
+                      );
                     },
                   ),
                 ],

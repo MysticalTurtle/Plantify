@@ -45,8 +45,7 @@ class OnboardingFirstScreen extends StatelessWidget {
                     textColor: AppColors.darkGreen,
                     text: "Omitir",
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => const OnboardingSecondScreen()),);
+                      Navigator.pushReplacementNamed(context, "onboarding4");
                     },
                   ),
                   LightButton(

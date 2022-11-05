@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recog_plantify/core/config/preferences.dart';
 import 'package:recog_plantify/core/constants/app_colors.dart';
 import 'package:recog_plantify/core/constants/app_text_style.dart';
 import 'package:recog_plantify/presentation/widgets/planty_button.dart';
@@ -9,6 +10,9 @@ class OnboardingLastScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SharedPreferencesPlantify prefs = SharedPreferencesPlantify();
+    prefs.setOnboardingViewed(true);
+
     return Scaffold(
       body: Container(
         color: AppColors.backgroundColor,
@@ -82,7 +86,7 @@ class OnboardingLastScreen extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("• "),
+                  const Text("• "),
                   Expanded(child: RichText(
                 text: const TextSpan(
                   text: "Uso rápido y sencillo, ¡solo apunta con tu cámara hacia una planta de tu interés y ",
@@ -110,8 +114,12 @@ class OnboardingLastScreen extends StatelessWidget {
                 ]
               ),
               const SizedBox(height: 10),
-              const TransparentButton(text: "Iniciar sesión"),
-              const PlantyButton(isDark: false, text: "Registrarte"),              
+              TransparentButton(text: "Iniciar sesión", onPressed: (){
+                Navigator.pushReplacementNamed(context, "login");
+              }),
+              PlantyButton(isDark: false, text: "Registrarte", onPressed: (){
+                Navigator.pushReplacementNamed(context, "register");
+              }),
             ],
           ),
         ),
