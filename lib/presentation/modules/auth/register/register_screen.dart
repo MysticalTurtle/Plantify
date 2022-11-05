@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recog_plantify/core/constants/app_colors.dart';
 import 'package:recog_plantify/core/constants/app_text_style.dart';
+import 'package:recog_plantify/presentation/modules/auth/cubit/auth_cubit.dart';
 import 'package:recog_plantify/presentation/widgets/planty_button.dart';
 import 'package:recog_plantify/presentation/widgets/planty_text_field.dart';
 
@@ -126,22 +128,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                   ),
                   CustomTextInput(
-                    hintText: "Correo electrónico",
-                    isNumeric: false,
-                    autofocus: false,
-                    currentNode: _emailNode,
-                    nextNode: _userNameNode,
-                    controller: _emailController,
-                    validator: (email) {
-                      //validate email with regex
-                      if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                      .hasMatch(email??'')) {
-                        return null;
-                      } else {
-                        return "Por favor ingrese un correo válido";
-                      }
-                    }
-                  ),
+                      hintText: "Correo electrónico",
+                      isNumeric: false,
+                      autofocus: false,
+                      currentNode: _emailNode,
+                      nextNode: _userNameNode,
+                      controller: _emailController,
+                      validator: (email) {
+                        //validate email with regex
+                        if (RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(email ?? '')) {
+                          return null;
+                        } else {
+                          return "Por favor ingrese un correo válido";
+                        }
+                      }),
                   CustomTextInput(
                     hintText: "Nombre de usuario",
                     isNumeric: false,
@@ -193,13 +195,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       }
                       return null;
                     },
-
                   ),
                   PlantyButton(
                     text: "Regístrate",
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        print("Validado");
+                        bool response =
+                            await context.read<AuthCubit>().register(
+                                  _userNameController.text,
+                                  _emailController.text,
+                                  _passwordController.text,
+                                  _nameController.text,
+                                  _lastNameController.text,
+                                );
+
+                        if (response) {
+                          Navigator.pushReplacementNamed(context, "register");
+                        }
                       }
                     },
                   ),

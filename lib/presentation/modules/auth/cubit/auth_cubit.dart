@@ -29,6 +29,17 @@ class AuthCubit extends Cubit<AuthState> {
     emit(OnboardingNotViewed());
   }
 
+  Future<bool> register(username, email, password, firstname, lastname) async {
+    AuthDataSourceImpl authDataSourceImpl = AuthDataSourceImpl();
+    try {
+      bool created = await authDataSourceImpl.register(username, email, password, firstname, lastname);
+      return created;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
   Future<bool> login(username, password) async {
     AuthDataSourceImpl authDataSourceImpl = AuthDataSourceImpl();
     try {
