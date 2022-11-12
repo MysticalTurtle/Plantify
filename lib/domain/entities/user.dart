@@ -1,4 +1,4 @@
-import 'package:recog_plantify/data/models/user_model.dart';
+import 'package:recog_plantify/data/models/login_response.dart' as lr;
 
 class User {
   final String name;
@@ -17,14 +17,14 @@ class User {
     required this.credits,
   });
 
-  factory User.fromUserModel(UserModel userModel) {
+  factory User.fromUserModel(User userResponse) {
     return User(
-      name: userModel.name,
-      lastName: userModel.lastName,
-      userName: userModel.userName,
-      email: userModel.email,
-      token: userModel.token,
-      credits: userModel.credits,
+      name: userResponse.name,
+      lastName: userResponse.lastName,
+      userName: userResponse.userName,
+      email: userResponse.email,
+      token: userResponse.token,
+      credits: userResponse.credits,
     );
   }
 
@@ -32,15 +32,26 @@ class User {
     return User(
       name: json['name'],
       lastName: json['lastName'],
-      userName: json['username'],
+      userName: json['userName'],
       email: json['email'],
       token: json['token'],
-      credits: 20, //json['credits'],
+      credits: json['credits'],
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
+  // from loginResponse
+  factory User.fromLoginResponse(lr.LoginResponse loginResponse) {
+    return User(
+      name: loginResponse.user.doc.firstName,
+      lastName: loginResponse.user.doc.lastName,
+      userName: loginResponse.user.doc.username,
+      email: loginResponse.user.doc.email,
+      token: loginResponse.token,
+      credits: 20, //loginResponse.credits,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {    
       'name': name,
       'lastName': lastName,
       'userName': userName,
@@ -48,7 +59,7 @@ class User {
       'token': token,
       'credits': 20,
     };
-  }
+  
 
   @override
   String toString() {

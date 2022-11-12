@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:recog_plantify/domain/entities/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,7 +9,9 @@ class SharedPreferencesPlantify {
   Future<User?> getUser() async {
     final prefs = await SharedPreferences.getInstance();
     final user = prefs.getString('user');
+
     if (user != null) {
+      debugPrint(">>>>>>>>>user: $user");
       return User.fromJson(jsonDecode(user));
     } else {
       return null;

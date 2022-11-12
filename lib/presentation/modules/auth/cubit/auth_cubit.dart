@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:recog_plantify/core/config/preferences.dart';
 import 'package:recog_plantify/data/datasources/auth_datasource.dart';
 import 'package:recog_plantify/domain/entities/user.dart';
@@ -6,8 +7,9 @@ import 'package:recog_plantify/domain/entities/user.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthInitial());
+  AuthCubit({required this.authDataSource}) : super(AuthInitial());
 
+  final AuthDataSource authDataSource;
   final SharedPreferencesPlantify _prefs = SharedPreferencesPlantify();
   final SecureStoragePlantify _secureStorage = SecureStoragePlantify();
 
@@ -15,7 +17,7 @@ class AuthCubit extends Cubit<AuthState> {
     await Future.delayed(const Duration(seconds: 2));
     final token = await _secureStorage.getToken();
     if (token != null) {
-      print(token);
+      debugPrint(token);
       User user = await _prefs.getUser() as User;
       emit(Authenticated(user: user));
       return;
@@ -30,9 +32,9 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<bool> register(username, email, password, firstname, lastname) async {
-    AuthDataSourceImpl authDataSourceImpl = AuthDataSourceImpl();
     try {
-      bool created = await authDataSourceImpl.register(username, email, password, firstname, lastname);
+      bool created = await authDataSource.register(
+          username, email, password, firstname, lastname);
       return created;
     } catch (e) {
       print(e);
@@ -41,11 +43,9 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<bool> login(username, password) async {
-    AuthDataSourceImpl authDataSourceImpl = AuthDataSourceImpl();
     try {
-      User user = User.fromUserModel(
-          await authDataSourceImpl.login(username, password));
-      
+      final loginResponse = await authDataSource.login(username, password);
+      User user = User.fromLoginResponse(loginResponse);
       emit(Authenticated(user: user));
       print(user);
       _prefs.setUser(user);

@@ -3,11 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recog_plantify/core/constants/app_colors.dart';
 
 import 'core/config/router.dart';
+import 'injection_container.dart' as di;
+import 'injection_container.dart';
 import 'presentation/modules/auth/cubit/auth_cubit.dart';
 import 'presentation/modules/splash/splash_screen.dart';
 
-void main() {
+void main() async {
   RouterMain.setupRouter();
+
+  await di.init();
 
   runApp(const MyApp());
 }
@@ -21,7 +25,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthCubit>(
-          create: (context) => AuthCubit()..checkAuth(),
+          create: (context) => sl<AuthCubit>()..checkAuth(),
         ),
       ],
       child: MaterialApp(
@@ -41,16 +45,16 @@ class MyApp extends StatelessWidget {
           listener: (context, state) {
             NavigatorState navigator = Navigator.of(context);
             if (state is Authenticated) {
-            print("Va al Authenticated");
+              debugPrint("Va al Authenticated");
               navigator.pushReplacementNamed("home");
               return;
             }
             if (state is Unauthenticated) {
-            print("Va al Unauthenticated");
+              debugPrint("Va al Unauthenticated");
               navigator.pushReplacementNamed("login");
               return;
             }
-            print("Va al onboarding");
+            debugPrint("Va al onboarding");
             navigator.pushReplacementNamed("onboarding1");
           },
           child: const SplashScreen(),
