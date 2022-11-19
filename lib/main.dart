@@ -47,11 +47,12 @@ class MyApp extends StatelessWidget {
             if (state is Authenticated) {
               debugPrint("Va al Authenticated");
               navigator.pushReplacementNamed("home");
+              // navigator.pushReplacementNamed("onboarding1");
               return;
             }
             if (state is Unauthenticated) {
               debugPrint("Va al Unauthenticated");
-              navigator.pushReplacementNamed("login");
+              Navigator.of(context).pushReplacementNamed("login");
               return;
             }
             debugPrint("Va al onboarding");

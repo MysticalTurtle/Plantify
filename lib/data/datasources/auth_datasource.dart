@@ -22,7 +22,7 @@ class AuthDataSourceImpl extends AuthDataSource {
     final http.Response response = await http.post(Uri.parse(url),
         headers: {"Content-Type": "application/json"}, body: jsonEncode(data));
     if (response.statusCode == 200) {
-      print("Hasta aquí todo bien");
+      debugPrint("Hasta aquí todo bien");
       return LoginResponse.fromJson(jsonDecode(response.body));
     } else {
       debugPrint(response.body);

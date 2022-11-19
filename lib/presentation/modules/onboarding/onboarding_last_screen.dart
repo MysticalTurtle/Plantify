@@ -3,7 +3,6 @@ import 'package:recog_plantify/core/config/preferences.dart';
 import 'package:recog_plantify/core/constants/app_colors.dart';
 import 'package:recog_plantify/core/constants/app_text_style.dart';
 import 'package:recog_plantify/presentation/widgets/planty_button.dart';
-import 'package:recog_plantify/presentation/widgets/transparent_button.dart';
 
 class OnboardingLastScreen extends StatelessWidget {
   const OnboardingLastScreen({super.key});
@@ -114,13 +113,40 @@ class OnboardingLastScreen extends StatelessWidget {
                 ]
               ),
               const SizedBox(height: 10),
-              TransparentButton(text: "Iniciar sesión", onPressed: (){
+              _TransparentButton(text: "Iniciar sesión", onPressed: (){
                 Navigator.pushReplacementNamed(context, "login");
               }),
               PlantyButton(isDark: false, text: "Registrarte", onPressed: (){
                 Navigator.pushReplacementNamed(context, "register");
               }),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+class _TransparentButton extends StatelessWidget {
+  final String text;
+  final void Function()? onPressed;
+  const _TransparentButton({required this.text, this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        padding: const EdgeInsets.all(16.0),
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        child: Center(
+          child: Text(
+            text,
+            style: const TextStyle(color: AppColors.primaryGreen),
           ),
         ),
       ),

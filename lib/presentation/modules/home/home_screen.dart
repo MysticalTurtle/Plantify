@@ -62,20 +62,43 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               accountEmail: Text(user.email),
             ),
-            _DrawerItem(icon: Icons.camera_alt, text: "Analizar plantas"),
+            _DrawerItem(
+              icon: Icons.camera_alt,
+              text: "Analizar plantas",
+              onTap: () {
+                Navigator.pop(context);
+                setState(() {
+                  _selectedIndex = 0;
+                });
+              },
+            ),
             _DrawerItem(
               icon: Icons.history,
               text: "Historial de búsquedas",
+              onTap: () {
+                Navigator.pop(context);
+                setState(() {
+                  _selectedIndex = 1;
+                });
+              },
+              
             ),
             _DrawerItem(
               icon: Icons.info,
-              text: "Acerca de",
+              text: "Acerca de",              
+              onTap: () {
+                Navigator.pop(context);
+                setState(() {
+                  _selectedIndex = 2;
+                });
+              },
             ),
             _DrawerItem(
               icon: Icons.logout,
               text: "Cerrar sesión",
               onTap: () {
                 context.read<AuthCubit>().logout();
+                Navigator.of(context).pushReplacementNamed("login");
               },
             ),
           ],
@@ -83,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.white,
-        unselectedItemColor: Color.fromARGB(255, 18, 44, 0),
+        unselectedItemColor: const Color.fromARGB(255, 18, 44, 0),
         backgroundColor: AppColors.primaryGreen,
         items: const [
           BottomNavigationBarItem(
@@ -112,8 +135,8 @@ class _HomeScreenState extends State<HomeScreen> {
 class _DrawerItem extends StatelessWidget {
   final String text;
   final IconData icon;
-  void Function()? onTap;
-  _DrawerItem({required this.text, required this.icon, this.onTap});
+  final void Function()? onTap;
+  const _DrawerItem({required this.text, required this.icon, this.onTap});
 
   @override
   Widget build(BuildContext context) {

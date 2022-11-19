@@ -37,7 +37,7 @@ class AuthCubit extends Cubit<AuthState> {
           username, email, password, firstname, lastname);
       return created;
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       return false;
     }
   }
@@ -47,12 +47,12 @@ class AuthCubit extends Cubit<AuthState> {
       final loginResponse = await authDataSource.login(username, password);
       User user = User.fromLoginResponse(loginResponse);
       emit(Authenticated(user: user));
-      print(user);
+      debugPrint(user.toString());
       _prefs.setUser(user);
       _secureStorage.setToken(user.token);
       return true;
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       return false;
     }
   }
