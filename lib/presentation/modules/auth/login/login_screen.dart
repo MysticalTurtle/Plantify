@@ -127,6 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               getSnackBar("Error al iniciar sesión", false)
                             );
+                          setState(() => _isLoading = false);
                           }
                         },
                         text: "Iniciar sesión",

@@ -24,6 +24,17 @@ class SharedPreferencesPlantify {
     return;
   }
 
+  Future<void> setShowHelp(bool showHelp) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('showHelp', showHelp);
+    return;
+  }
+
+  Future<bool> getShowHelp() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('showHelp') ?? false;
+  }
+
   Future<bool> getOnboardingViewed() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool('onboardingViewed') ?? false;
