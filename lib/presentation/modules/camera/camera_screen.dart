@@ -4,6 +4,7 @@ import 'package:recog_plantify/core/constants/app_colors.dart';
 import 'package:recog_plantify/core/constants/app_text_style.dart';
 import 'package:recog_plantify/domain/entities/user.dart';
 import 'package:recog_plantify/presentation/modules/auth/cubit/auth_cubit.dart';
+import 'package:recog_plantify/presentation/modules/home/widgets/verify_email.dart';
 
 class CameraScreen extends StatelessWidget {
   const CameraScreen({super.key});
@@ -17,6 +18,7 @@ class CameraScreen extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 50),
           children: [
+            const VerifyEmail(),
             RichText(
               text: TextSpan(
                 text: "Bienvenido ",

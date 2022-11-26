@@ -42,12 +42,12 @@ class User {
   // from loginResponse
   factory User.fromLoginResponse(lr.LoginResponse loginResponse) {
     return User(
-      name: loginResponse.user.doc.firstName,
-      lastName: loginResponse.user.doc.lastName,
-      userName: loginResponse.user.doc.username,
-      email: loginResponse.user.doc.email,
+      name: loginResponse.user.firstName,
+      lastName: loginResponse.user.lastName,
+      userName: loginResponse.user.username,
+      email: loginResponse.user.email,
       token: loginResponse.token,
-      credits: 20, //loginResponse.credits,
+      credits: loginResponse.user.remainingCredits,
     );
   }
 
@@ -57,7 +57,7 @@ class User {
       'userName': userName,
       'email': email,
       'token': token,
-      'credits': 20,
+      'credits': credits,
     };
   
 

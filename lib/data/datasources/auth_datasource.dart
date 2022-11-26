@@ -13,7 +13,8 @@ abstract class AuthDataSource {
 class AuthDataSourceImpl extends AuthDataSource {
   @override
   Future<LoginResponse> login(String userName, String password) async {
-    const String url = "https://plantify.up.railway.app/api/users/login";
+    // const String url = "http://plantify.up.railway.app/api/users/login";
+    const String url = "http://192.168.1.2:3030/api/users/login";
     Map<String, dynamic> data = {
       'username': userName,
       'password': password,
@@ -21,6 +22,7 @@ class AuthDataSourceImpl extends AuthDataSource {
 
     final http.Response response = await http.post(Uri.parse(url),
         headers: {"Content-Type": "application/json"}, body: jsonEncode(data));
+    print(jsonDecode(response.body)["ok"]);
     if (response.statusCode == 200) {
       debugPrint("Hasta aquí todo bien");
       return LoginResponse.fromJson(jsonDecode(response.body));
