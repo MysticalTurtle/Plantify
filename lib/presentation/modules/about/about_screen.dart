@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recog_plantify/core/constants/app_colors.dart';
 import 'package:recog_plantify/core/constants/app_text_style.dart';
 import 'package:recog_plantify/domain/entities/user.dart';
-import 'package:recog_plantify/presentation/modules/auth/cubit/auth_cubit.dart';
+import 'package:recog_plantify/presentation/cubits/login/auth_cubit.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});

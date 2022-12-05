@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recog_plantify/core/constants/app_colors.dart';
 import 'package:recog_plantify/core/constants/app_text_style.dart';
-import 'package:recog_plantify/presentation/modules/auth/cubit/auth_cubit.dart';
+import 'package:recog_plantify/presentation/cubits/login/auth_cubit.dart';
 import 'package:recog_plantify/presentation/widgets/custom_snackbar.dart';
 import 'package:recog_plantify/presentation/widgets/loading_indicator.dart';
 import 'package:recog_plantify/presentation/widgets/planty_button.dart';

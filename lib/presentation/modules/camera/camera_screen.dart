@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recog_plantify/core/constants/app_colors.dart';
 import 'package:recog_plantify/core/constants/app_text_style.dart';
 import 'package:recog_plantify/domain/entities/user.dart';
-import 'package:recog_plantify/presentation/modules/auth/cubit/auth_cubit.dart';
+import 'package:recog_plantify/presentation/cubits/login/auth_cubit.dart';
 import 'package:recog_plantify/presentation/modules/home/widgets/verify_email.dart';
 
 class CameraScreen extends StatelessWidget {
@@ -18,7 +18,7 @@ class CameraScreen extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 50),
           children: [
-            const VerifyEmail(),
+            VerifyEmail(onTap: /*context.read<SendEmailCubit>().*/ () => print("a")),
             RichText(
               text: TextSpan(
                 text: "Bienvenido ",

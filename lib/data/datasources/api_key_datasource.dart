@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:recog_plantify/data/models/send_email_response.dart';
 import 'package:http/http.dart' as http;
 
-abstract class SendEmailDataSource {
+abstract class ApiKeyDataSource {
   Future<SendEmailResponse> sendEmail(String token);
 }
 
-class SendEmailDataSourceImpl extends SendEmailDataSource{
+class ApiKeyDataSourceImpl extends ApiKeyDataSource{
   @override
   Future<SendEmailResponse> sendEmail(String token) async {
     const String url = "http://localhost:3030/api/key/request";
