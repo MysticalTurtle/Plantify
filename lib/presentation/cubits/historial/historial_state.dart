@@ -8,7 +8,7 @@ class HistorialInitial extends HistorialState {}
 class HistorialLoading extends HistorialState {}
 
 class HistorialLoaded extends HistorialState {
-  final List<PlantRecord> records;
+  final List<Query> records;
 
   HistorialLoaded({required this.records});
 }

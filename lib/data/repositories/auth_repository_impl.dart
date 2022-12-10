@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:recog_plantify/core/config/preferences.dart';
 import 'package:recog_plantify/core/utils/failure.dart';
 import 'package:recog_plantify/data/datasources/auth_datasource.dart';
 import 'package:recog_plantify/domain/entities/user.dart';
@@ -8,6 +9,8 @@ class AuthRepositoryImpl extends AuthRepository {
   AuthRepositoryImpl({required this.dataSource});
 
   final AuthDataSource dataSource;
+  final prefs = SharedPreferencesPlantify();
+  final securePrefs = SecureStoragePlantify();
 
   @override
   Future<Either<Failure, User>> login(String userName, String password) async {
@@ -28,5 +31,21 @@ class AuthRepositoryImpl extends AuthRepository {
     } on Failure catch (e) {
       return Left(e);
     }
+  }
+  
+  @override
+  Future<String?> getToken() {
+    return securePrefs.getToken();
+  }
+  
+  @override
+  Future<User?> getUser() {
+    return prefs.getUser();
+  }
+  
+  @override
+  Future<void> saveUser(User user) async {
+    prefs.setUser(user);
+    securePrefs.setToken(user.token);
   }
 }

@@ -7,6 +7,7 @@ import 'core/config/router.dart';
 import 'injection_container.dart' as di;
 import 'injection_container.dart';
 import 'package:recog_plantify/presentation/cubits/login/auth_cubit.dart';
+import 'presentation/modules/onboarding/onboarding_screen.dart';
 import 'presentation/modules/splash/splash_screen.dart';
 
 void main() async {
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthCubit>(
+          lazy: false,
           create: (context) => sl<AuthCubit>()..checkAuth(),
         ),
         BlocProvider<ApiKeyCubit>(
@@ -45,25 +47,7 @@ class MyApp extends StatelessWidget {
             selectionHandleColor: AppColors.primaryGreen,
           ),
         ),
-        home: BlocListener<AuthCubit, AuthState>(
-          listener: (context, state) {
-            NavigatorState navigator = Navigator.of(context);
-            if (state is Authenticated) {
-              debugPrint("Va al Authenticated");
-              navigator.pushReplacementNamed("home");
-              // navigator.pushReplacementNamed("onboarding1");
-              return;
-            }
-            if (state is Unauthenticated) {
-              debugPrint("Va al Unauthenticated");
-              Navigator.of(context).pushReplacementNamed("login");
-              return;
-            }
-            debugPrint("Va al onboarding");
-            navigator.pushReplacementNamed("onboarding1");
-          },
-          child: const SplashScreen(),
-        ),
+        home: const OnboardingScreen(),
       ),
     );
   }

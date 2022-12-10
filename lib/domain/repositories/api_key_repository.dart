@@ -5,4 +5,6 @@ abstract class ApiKeyRepository {
   Future<Either<Failure, Unit>> sendEmail(String token);
   
   Future<Either<Failure, Unit>> requestApiKey(String token);
+
+  Future<Either<Failure, String>> checkApiKey();
 }

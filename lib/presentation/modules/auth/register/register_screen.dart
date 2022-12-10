@@ -86,14 +86,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         vertical: 40, horizontal: 50),
                     children: [
                       const Text(
-                        "Plantify",
+                        "Registro",
                         style: TextStyles.kLoginTitle,
                         textAlign: TextAlign.center,
                       ),
-                      const Text(
-                        "Porque las plantas son parte de nuestra vida",
-                        style: TextStyles.kWelcome,
-                        textAlign: TextAlign.center,
+                      const SizedBox(
+                        height: 10,
                       ),
                       Image.asset("assets/images/logo.png",
                           width: 150, height: 150),

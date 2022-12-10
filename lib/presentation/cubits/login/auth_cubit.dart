@@ -1,29 +1,29 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:recog_plantify/core/config/preferences.dart';
-import 'package:recog_plantify/data/datasources/auth_datasource.dart';
 import 'package:recog_plantify/domain/entities/user.dart';
+import 'package:recog_plantify/domain/repositories/auth_repository.dart';
 
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit({required this.authDataSource}) : super(AuthInitial());
+  AuthCubit({required this.authRepository}) : super(AuthInitial());
 
-  final AuthDataSource authDataSource;
-  final SharedPreferencesPlantify _prefs = SharedPreferencesPlantify();
-  final SecureStoragePlantify _secureStorage = SecureStoragePlantify();
+  final AuthRepository authRepository;
+  final prefs = SharedPreferencesPlantify();
+  final securePrefs = SecureStoragePlantify();
 
   void checkAuth() async {
     await Future.delayed(const Duration(seconds: 2));
-    final token = await _secureStorage.getToken();
+    final token = await authRepository.getToken();
     if (token != null) {
       debugPrint(token);
-      User user = await _prefs.getUser() as User;
+      User user = await authRepository.getUser() as User;
       emit(Authenticated(user: user));
       return;
     }
 
-    if (await _prefs.getOnboardingViewed()) {
+    if (await prefs.getOnboardingViewed()) {
       emit(Unauthenticated());
       return;
     }
@@ -32,34 +32,34 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<bool> register(username, email, password, firstname, lastname) async {
-    try {
-      bool created = await authDataSource.register(
-          username, email, password, firstname, lastname);
-      return created;
-    } catch (e) {
-      debugPrint(e.toString());
+    var response = await authRepository.register(
+        username, email, password, firstname, lastname);
+
+    response.fold((failure) {
       return false;
-    }
+    }, (unit) {
+      return true;
+    });
+    return true;
   }
 
-  Future<bool> login(username, password) async {
-    try {
-      final loginResponse = await authDataSource.login(username, password);
-      User user = User.fromLoginResponse(loginResponse);
-      emit(Authenticated(user: user));
+  Future<void> login(username, password) async {
+
+    var response = await authRepository.login(username, password);
+
+    response.fold((failure) {
+      debugPrint(failure.toString());
+    }, (user) {
       debugPrint(user.toString());
-      _prefs.setUser(user);
-      _secureStorage.setToken(user.token);
+      authRepository.saveUser(user);
+      emit(Authenticated(user: user));
       return true;
-    } catch (e) {
-      debugPrint(e.toString());
-      return false;
-    }
+    });
   }
 
   void logout() {
-    _prefs.clear();
-    _secureStorage.clear();
+    prefs.clear();
+    securePrefs.clear();
     emit(Unauthenticated());
   }
 }

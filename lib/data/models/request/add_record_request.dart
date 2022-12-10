@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:recog_plantify/domain/entities/plant.dart';
+import 'package:recog_plantify/domain/entities/query.dart';
 
 AddRecordRequest addRecordRequestFromJson(String str) =>
     AddRecordRequest.fromJson(json.decode(str));
@@ -24,7 +25,9 @@ class AddRecordRequest {
         "content": content,
       };
 
-  factory AddRecordRequest.fromPlantRecord(PlantRecord plantRecord) {
-    return AddRecordRequest(content: plantRecord.toJson().toString());
+  static fromQuery(Query plantQuery) {
+    return AddRecordRequest(
+      content: json.encode(plantQuery.toJson()),
+    );
   }
 }

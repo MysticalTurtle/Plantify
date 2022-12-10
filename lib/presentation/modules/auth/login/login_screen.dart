@@ -52,107 +52,114 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          GestureDetector(
-            onTap: () => FocusScope.of(context).unfocus(),
-            child: SafeArea(
-              child: Container(
-                color: AppColors.backgroundColor,
-                child: Form(
-                  key: _formKey,
-                  child: ListView(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 40, horizontal: 50),
-                    children: [
-                      const Text(
-                        "Plantify",
-                        style: TextStyles.kLoginTitle,
-                        textAlign: TextAlign.center,
-                      ),
-                      Image.asset("assets/images/logo.png",
-                          width: 150, height: 150),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Text("¡Bienvenido!",
-                          style: TextStyles.kWelcome,
-                          textAlign: TextAlign.center),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      CustomTextInput(
-                        hintText: "Ingresar usuario",
-                        isNumeric: false,
-                        autofocus: false,
-                        currentNode: _emailNode,
-                        nextNode: _passwordNode,
-                        controller: _emailController,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Por favor ingrese un usuario";
-                          }
-                          return null;
-                        },
-                      ),
-                      CustomTextInput(
-                        hintText: "Ingresar contraseña",
-                        isNumeric: false,
-                        autofocus: false,
-                        isPassword: true,
-                        currentNode: _passwordNode,
-                        controller: _passwordController,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Por favor ingrese un usuario";
-                          }
-                          return null;
-                        },
-                      ),
-                      PlantyButton(
-                        onPressed: () async {
-                          if (!_formKey.currentState!.validate()) {
-                            ScaffoldMessenger.of(context).showSnackBar(getSnackBar("Corriga los campos", false)
-                            );
-                            return;
-                          }
-                          setState(() => _isLoading = true);
-                          FocusScope.of(context).unfocus();
-                          bool logged = await context.read<AuthCubit>().login(
-                              _emailController.text, _passwordController.text);
-                          if (logged) {
-                            Navigator.pushNamed(context, "/home");
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              getSnackBar("Error al iniciar sesión", false)
-                            );
-                          setState(() => _isLoading = false);
-                          }
-                        },
-                        text: "Iniciar sesión",
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushReplacementNamed(context, "/register");
-                        },
-                        child: const Text(
-                          "¿No tienes una cuenta?\nRegístrate",
-                          style: TextStyles.kForgotPassword,
+    return BlocListener<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is Authenticated) {
+          Navigator.pushNamed(context, "/home");
+        }
+
+        if (state is AuthFailure) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(getSnackBar("Error al iniciar sesión", false));
+          setState(() => _isLoading = false);
+        }
+      },
+      child: Scaffold(
+        body: Stack(
+          children: [
+            GestureDetector(
+              onTap: () => FocusScope.of(context).unfocus(),
+              child: SafeArea(
+                child: Container(
+                  color: AppColors.backgroundColor,
+                  child: Form(
+                    key: _formKey,
+                    child: ListView(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 40, horizontal: 50),
+                      children: [
+                        const Text(
+                          "Plantify",
+                          style: TextStyles.kLoginTitle,
                           textAlign: TextAlign.center,
                         ),
-                      ),
-                    ],
+                        Image.asset("assets/images/logo.png",
+                            width: 150, height: 150),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const Text("¡Bienvenido!",
+                            style: TextStyles.kWelcome,
+                            textAlign: TextAlign.center),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        CustomTextInput(
+                          hintText: "Ingresar usuario",
+                          isNumeric: false,
+                          autofocus: false,
+                          currentNode: _emailNode,
+                          nextNode: _passwordNode,
+                          controller: _emailController,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Por favor ingrese un usuario";
+                            }
+                            return null;
+                          },
+                        ),
+                        CustomTextInput(
+                          hintText: "Ingresar contraseña",
+                          isNumeric: false,
+                          autofocus: false,
+                          isPassword: true,
+                          currentNode: _passwordNode,
+                          controller: _passwordController,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Por favor ingrese un usuario";
+                            }
+                            return null;
+                          },
+                        ),
+                        PlantyButton(
+                          onPressed: () async {
+                            if (!_formKey.currentState!.validate()) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  getSnackBar("Corriga los campos", false));
+                              return;
+                            }
+                            setState(() => _isLoading = true);
+                            FocusScope.of(context).unfocus();
+                            await context.read<AuthCubit>().login(
+                                _emailController.text,
+                                _passwordController.text);
+                          },
+                          text: "Iniciar sesión",
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushReplacementNamed(
+                                context, "/register");
+                          },
+                          child: const Text(
+                            "¿No tienes una cuenta?\nRegístrate",
+                            style: TextStyles.kForgotPassword,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          _isLoading ? const LoadingIndicator() : Container(),
-        ],
+            _isLoading ? const LoadingIndicator() : Container(),
+          ],
+        ),
       ),
     );
   }

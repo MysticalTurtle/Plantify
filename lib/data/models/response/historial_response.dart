@@ -1,6 +1,6 @@
 import 'dart:convert';
+import 'package:recog_plantify/domain/entities/query.dart';
 
-import 'package:recog_plantify/domain/entities/plant.dart';
 
 HistorialResponse historialResponseFromJson(String str) =>
     HistorialResponse.fromJson(json.decode(str));
@@ -27,8 +27,14 @@ class HistorialResponse {
             List<History>.from(json["history"].map((x) => History.fromJson(x))),
       );
 
-  factory List<PlantRecord>.fromJson(List<dynamic> json) =>
-      history.map((x) => x.toPlantRecord()).toList();
+  // factory to querylist
+  List<Query> toQueryList() {
+    List<Query> queryList = [];
+    for (var item in history) {
+      queryList.add(Query.fromJson(json.decode(item.content)));
+    }
+    return queryList;
+  }
 
   Map<String, dynamic> toJson() => {
         "ok": ok,
@@ -71,11 +77,4 @@ class History {
         "updatedAt": updatedAt.toIso8601String(),
         "__v": v,
       };
-
-  factory History.toPlantRecord() => PlantRecord(
-        id: id,
-        content: content,
-        createdAt: createdAt,
-        updatedAt: updatedAt,
-      ); 
 }

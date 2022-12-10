@@ -1,17 +1,17 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:recog_plantify/core/utils/failure.dart';
-import 'package:recog_plantify/data/models/response/recognition_response.dart';
+import 'package:recog_plantify/domain/entities/query.dart';
 
 abstract class RecognitionDataSource {
-  Future<RecognitionResponse> recognizePlant(String token, String imagePath);
+  Future<Query> recognizePlant(String token, String imagePath);
 }
 
 class RecognitionDataSourceImpl implements RecognitionDataSource {
   RecognitionDataSourceImpl();
 
   @override
-  Future<RecognitionResponse> recognizePlant(
+  Future<Query> recognizePlant(
       String token, String imagePath) async {
     String url = 'https://plantify-api.herokuapp.com/api/v1/plantify';
     var dio = Dio();
@@ -19,15 +19,15 @@ class RecognitionDataSourceImpl implements RecognitionDataSource {
 
     FormData formData = FormData.fromMap({
       "data":
-          '{"plant_details": ["common_names", "url","wiki_description", "taxonomy", "synonyms"], "modifiers": ["similar_images"], "plant_language": "es"}',
+          '{"plant_details": ["common_names", "url","wiki_description", "taxonomy", "synonyms", "edible_parts","watering", "wiki_image", "wiki_images" ], "modifiers": ["similar_images"], "plant_language": "es"}',
       "images": [await MultipartFile.fromFile('imagePath')]
     });
 
     try {
       var response = await dio.post(url, data: formData);
-      return RecognitionResponse.fromJson(response.data);
+      return Query.fromJson(response.data);
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint("ERROR>>>>>>> ${e.toString()}");
       throw Failure(message: "Error al reconocer la imagen", isBackend: true);
     }
   }

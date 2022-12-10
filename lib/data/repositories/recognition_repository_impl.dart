@@ -3,7 +3,7 @@ import 'package:recog_plantify/core/config/preferences.dart';
 import 'package:recog_plantify/core/utils/failure.dart';
 import 'package:recog_plantify/data/datasources/credits_datasource.dart';
 import 'package:recog_plantify/data/datasources/recognition_datasource.dart';
-import 'package:recog_plantify/data/models/response/recognition_response.dart';
+import 'package:recog_plantify/domain/entities/query.dart';
 import 'package:recog_plantify/domain/repositories/recognition_repository.dart';
 
 class RecognitionRepositoryImpl extends RecognitionRepository {
@@ -13,7 +13,7 @@ class RecognitionRepositoryImpl extends RecognitionRepository {
   final CreditsDataSource creditsDataSource;
 
   @override
-  Future<Either<Failure, RecognitionResponse>> recognizePlant(
+  Future<Either<Failure, Query>> recognizePlant(
       String imagePath) async {
     try {
       final prefs = SecureStoragePlantify();
