@@ -1,4 +1,4 @@
-import 'package:recog_plantify/data/models/login_response.dart' as lr;
+import 'package:recog_plantify/data/models/response/login_response.dart' as lr;
 
 class User {
   final String name;
@@ -7,6 +7,7 @@ class User {
   final String email;
   final String token;
   final int credits;
+  final String? apiKey;
 
   const User({
     required this.name,
@@ -15,6 +16,7 @@ class User {
     required this.email,
     required this.token,
     required this.credits,
+    this.apiKey,
   });
 
   factory User.fromUserModel(User userResponse) {
@@ -25,6 +27,7 @@ class User {
       email: userResponse.email,
       token: userResponse.token,
       credits: userResponse.credits,
+      apiKey: userResponse.apiKey,
     );
   }
 
@@ -36,6 +39,7 @@ class User {
       email: json['email'],
       token: json['token'],
       credits: json['credits'],
+      apiKey: json['apiKey'],
     );
   }
 
@@ -48,6 +52,7 @@ class User {
       email: loginResponse.user.email,
       token: loginResponse.token,
       credits: loginResponse.user.remainingCredits,
+      apiKey: loginResponse.user.apiKey,
     );
   }
 
@@ -58,11 +63,11 @@ class User {
       'email': email,
       'token': token,
       'credits': credits,
+      'apiKey': apiKey,
     };
   
 
   @override
   String toString() {
-    return 'User{name: $name, lastName: $lastName, userName: $userName, email: $email, credits: $credits}';
-  }
+    return 'User(name: $name, lastName: $lastName, userName: $userName, email: $email, token: $token, credits: $credits, apiKey: $apiKey)';}
 }

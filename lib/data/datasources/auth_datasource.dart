@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:recog_plantify/data/models/login_response.dart';
+import 'package:recog_plantify/data/models/response/login_response.dart';
 
 abstract class AuthDataSource {
   Future<LoginResponse> login(String userName, String password);
@@ -14,7 +14,7 @@ class AuthDataSourceImpl extends AuthDataSource {
   @override
   Future<LoginResponse> login(String userName, String password) async {
     // const String url = "http://plantify.up.railway.app/api/users/login";
-    const String url = "http://192.168.1.2:3030/api/users/login";
+    const String url = "http://192.168.3.9:3030/api/users/login";
     Map<String, dynamic> data = {
       'username': userName,
       'password': password,
@@ -22,7 +22,8 @@ class AuthDataSourceImpl extends AuthDataSource {
 
     final http.Response response = await http.post(Uri.parse(url),
         headers: {"Content-Type": "application/json"}, body: jsonEncode(data));
-    print(jsonDecode(response.body)["ok"]);
+
+    debugPrint(jsonDecode(response.body)["ok"]);
     if (response.statusCode == 200) {
       debugPrint("Hasta aquí todo bien");
       return LoginResponse.fromJson(jsonDecode(response.body));

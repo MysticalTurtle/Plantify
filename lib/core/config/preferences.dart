@@ -71,4 +71,22 @@ class SecureStoragePlantify {
     await storage.deleteAll();
     return;
   }
+
+  Future<String?> getPlantIdToken() async {
+    const storage = FlutterSecureStorage();
+    final value = await storage.read(key: "plantIdToken");
+    return value;
+  }
+
+  Future<void> setPlantIdToken(String value) async {
+    const storage = FlutterSecureStorage();
+    await storage.write(key: "plantIdToken", value: value);
+    return;
+  }
+
+  Future<void> clearPlantIdToken() async {
+    const storage = FlutterSecureStorage();
+    await storage.delete(key: "plantIdToken");
+    return;
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recog_plantify/core/config/preferences.dart';
 import 'package:recog_plantify/core/constants/app_colors.dart';
 import 'package:recog_plantify/core/constants/app_text_style.dart';
 import 'package:recog_plantify/domain/entities/user.dart';
@@ -18,7 +19,10 @@ class CameraScreen extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 50),
           children: [
-            VerifyEmail(onTap: /*context.read<SendEmailCubit>().*/ () => print("a")),
+            VerifyEmail(onTap: /*context.read<SendEmailCubit>().*/ () {
+              var prefs = SecureStoragePlantify();
+              prefs.setPlantIdToken("3IG8pt7WkS75KtlU81fN6sQV07cvqrhDMebn7fWEKTR3WDaf55");
+            }),
             RichText(
               text: TextSpan(
                 text: "Bienvenido ",
@@ -73,7 +77,9 @@ Recuerda que cada análisis e identificación gastan tokens en tu cuenta, ¡apro
             CircleAvatar(
                 backgroundColor: AppColors.darkGreen,
                 child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      
+                    },
                     icon: const Icon(
                       Icons.camera,
                       color: AppColors.primaryWhite,

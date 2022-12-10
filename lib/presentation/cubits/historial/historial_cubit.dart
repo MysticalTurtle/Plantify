@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:recog_plantify/domain/entities/plant.dart';
 
 part 'historial_state.dart';
 
