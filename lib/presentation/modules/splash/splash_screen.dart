@@ -49,8 +49,12 @@ class _SplashScreenState extends State<SplashScreen> {
           Navigator.of(context).pushReplacementNamed("login");
           return;
         }
-        debugPrint("Va al onboarding");
-        navigator.pushReplacementNamed("onboarding1");
+
+        if (state is OnboardingNotViewed) {
+          debugPrint("Va al Onboarding");
+          navigator.pushReplacementNamed("onboarding");
+          return;
+        }
       },
       child: Scaffold(
         body: Container(

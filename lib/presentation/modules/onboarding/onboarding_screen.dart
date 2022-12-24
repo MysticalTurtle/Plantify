@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recog_plantify/core/config/preferences.dart';
 import 'package:recog_plantify/core/constants/app_colors.dart';
 import 'package:recog_plantify/presentation/modules/onboarding/widgets/dots.dart';
 import 'package:recog_plantify/presentation/modules/onboarding/widgets/info_onboarding.dart';
@@ -34,6 +35,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   void nextPage() {
     if (dots == 3) {
+      var prefs = SharedPreferencesPlantify();
+      prefs.setOnboardingViewed(true);
       skip();
       return;
     }
@@ -44,7 +47,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void skip() {
-    Navigator.pushReplacementNamed(context, "onboarding4");
+    Navigator.pushReplacementNamed(context, "onboardingLast");
   }
 
   @override

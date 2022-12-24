@@ -13,7 +13,7 @@ class RecognitionDataSourceImpl implements RecognitionDataSource {
   @override
   Future<Query> recognizePlant(
       String token, String imagePath) async {
-    String url = 'https://plantify-api.herokuapp.com/api/v1/plantify';
+    String url = 'https://api.plant.id/v2/identify';
     var dio = Dio();
     dio.options.headers['Api-Key'] = token;
 

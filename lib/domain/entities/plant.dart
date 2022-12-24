@@ -179,26 +179,26 @@ class Watering {
 class Wiki {
     Wiki({
         required this.value,
-        required this.citation,
+        this.citation,
         required this.licenseName,
         required this.licenseUrl,
     });
 
     final String value;
-    final String citation;
+    final String? citation;
     final String licenseName;
     final String licenseUrl;
 
     factory Wiki.fromJson(Map<String, dynamic> json) => Wiki(
         value: json["value"],
-        citation: json["citation"] == null ? null : json["citation"],
+        citation: json["citation"],
         licenseName: json["license_name"],
         licenseUrl: json["license_url"],
     );
 
     Map<String, dynamic> toJson() => {
         "value": value,
-        "citation": citation == null ? null : citation,
+        "citation": citation,
         "license_name": licenseName,
         "license_url": licenseUrl,
     };

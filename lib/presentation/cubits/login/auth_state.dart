@@ -21,6 +21,8 @@ class AuthFailure extends AuthState{
 
 class Unauthenticated extends AuthState {}
 
+class AuthLoading extends AuthState {}
+
 class OnboardingNotViewed extends AuthState {}
 
 

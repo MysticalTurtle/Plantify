@@ -34,7 +34,7 @@ class RouterMain {
     router.define('register', handler: _registerHandler, transitionType: TransitionType.inFromRight);
     router.define('onboarding',
         handler: _onBoarding, transitionType: TransitionType.inFromRight);
-    router.define('onboarding4',
+    router.define('onboardingLast',
         handler: _onBoarding4, transitionType: TransitionType.inFromRight);
     router.define('home',
         handler: _home, transitionType: TransitionType.inFromRight);

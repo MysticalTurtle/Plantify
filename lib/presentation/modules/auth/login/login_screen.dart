@@ -54,14 +54,29 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state is Authenticated) {
-          Navigator.pushNamed(context, "/home");
-        }
-
         if (state is AuthFailure) {
+          setState(() => _isLoading = false);
           ScaffoldMessenger.of(context)
               .showSnackBar(getSnackBar("Error al iniciar sesión", false));
+        }
+
+        if (state is AuthLoading) {
+          FocusScope.of(context).unfocus();
+          setState(() => _isLoading = true);
+        }
+
+        if (state is Unauthenticated) {
+          Navigator.pushReplacementNamed(context, "login");
           setState(() => _isLoading = false);
+          ScaffoldMessenger.of(context)
+              .showSnackBar(getSnackBar("Usuario creado con éxito", true));
+        }
+
+        if (state is Authenticated) {
+          Navigator.pushReplacementNamed(context, "home");
+          setState(() => _isLoading = false);
+          ScaffoldMessenger.of(context)
+              .showSnackBar(getSnackBar("Sesión iniciada con éxito", true));
         }
       },
       child: Scaffold(
@@ -129,8 +144,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   getSnackBar("Corriga los campos", false));
                               return;
                             }
-                            setState(() => _isLoading = true);
-                            FocusScope.of(context).unfocus();
                             await context.read<AuthCubit>().login(
                                 _emailController.text,
                                 _passwordController.text);

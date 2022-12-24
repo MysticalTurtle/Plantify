@@ -16,33 +16,44 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<Either<Failure, User>> login(String userName, String password) async {
     try {
       final loginResponse = await dataSource.login(userName, password);
+      if (!loginResponse.ok) {
+        return Left(Failure(message: loginResponse.message, isBackend: true));
+      }
       return Right(User.fromLoginResponse(loginResponse));
-    } on Failure catch (e) {
-      return Left(e);
+    } catch (e) {
+      return Left(Failure(message: "Error", isBackend: false));
     }
   }
 
   @override
-  Future<Either<Failure, Unit>> register(String username, String email,
+  Future<Either<Failure, String>> register(String username, String email,
       String password, String firstname, String lastname) async {
     try {
-      await dataSource.register(username, email, password, firstname, lastname);
-      return const Right(unit);
+      var response = await dataSource.register(
+          username, email, password, firstname, lastname);
+      if (!response.ok!) {
+        final String error =
+            response.errors != null ? response.errors!.first.msg : "Error";
+        return Left(Failure(message: error, isBackend: true));
+      }
+      return Right(response.token!);
     } on Failure catch (e) {
       return Left(e);
+    } on Exception catch (e) {
+      throw "Error";
     }
   }
-  
+
   @override
   Future<String?> getToken() {
     return securePrefs.getToken();
   }
-  
+
   @override
   Future<User?> getUser() {
     return prefs.getUser();
   }
-  
+
   @override
   Future<void> saveUser(User user) async {
     prefs.setUser(user);

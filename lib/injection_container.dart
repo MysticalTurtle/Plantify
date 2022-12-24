@@ -16,12 +16,15 @@ import 'data/repositories/api_key_repository_impl.dart';
 import 'domain/repositories/auth_repository.dart';
 import 'package:recog_plantify/presentation/cubits/login/auth_cubit.dart';
 
+import 'presentation/cubits/recognition/recognition_cubit.dart';
+
 final GetIt sl = GetIt.instance;
 
 Future<void> init() async {
   //Blocs
-  sl.registerLazySingleton<AuthCubit>(() => AuthCubit(authRepository: sl()));
+  sl.registerLazySingleton<AuthCubit>(() => AuthCubit(authRepository: sl(), apiKeyRepository: sl()));
   sl.registerLazySingleton<ApiKeyCubit>(() => ApiKeyCubit(repository: sl()));
+  sl.registerLazySingleton<RecognitionCubit>(() => RecognitionCubit(repository: sl()));
 
   //Repositories
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(dataSource: sl()));

@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:recog_plantify/domain/entities/plant.dart';
 import 'package:recog_plantify/domain/entities/query.dart';
 
 AddRecordRequest addRecordRequestFromJson(String str) =>

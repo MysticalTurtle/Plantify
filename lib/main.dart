@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recog_plantify/core/constants/app_colors.dart';
 import 'package:recog_plantify/presentation/cubits/api_key/api_key_cubit.dart';
+import 'package:recog_plantify/presentation/cubits/recognition/recognition_cubit.dart';
 
 import 'core/config/router.dart';
 import 'injection_container.dart' as di;
 import 'injection_container.dart';
 import 'package:recog_plantify/presentation/cubits/login/auth_cubit.dart';
-import 'presentation/modules/onboarding/onboarding_screen.dart';
 import 'presentation/modules/splash/splash_screen.dart';
 
 void main() async {
   RouterMain.setupRouter();
 
   await di.init();
+  
+  WidgetsFlutterBinding.ensureInitialized();
 
   runApp(const MyApp());
 }
@@ -33,6 +35,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<ApiKeyCubit>(
           create: (context) => sl<ApiKeyCubit>(),
         ),
+        BlocProvider<RecognitionCubit>(
+          create: (context) => sl<RecognitionCubit>(),
+        ),
       ],
       child: MaterialApp(
         onGenerateRoute: RouterMain.router.generator,
@@ -47,7 +52,7 @@ class MyApp extends StatelessWidget {
             selectionHandleColor: AppColors.primaryGreen,
           ),
         ),
-        home: const OnboardingScreen(),
+        home: const SplashScreen(),
       ),
     );
   }
