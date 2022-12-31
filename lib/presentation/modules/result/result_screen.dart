@@ -64,49 +64,76 @@ class _ResultScreenState extends State<ResultScreen> {
                 Text("Sugerencias: ", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                 const SizedBox(height: 20),
                 for (var i = 0; i < map["suggestions"].length; i++)
-                  Container(
-                    // make a beauty decoration for listtile
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 5, vertical: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white,
-                    ),
-                    margin: const EdgeInsets.only(bottom: 20),
-                    child: ListTile(
-                      leading: Image.network(
-                        map["suggestions"][i]["similar_images"][0]["url"] ??
-                            "https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&h=350",
-                        fit: BoxFit.cover,
-                      ),
-                      title: Row(
-                        children: [
-                          Text(
-                            map["suggestions"][i]["plant_name"],
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                  GestureDetector(
+                    onTap: () {
+                      showDialog(context: context, builder: (context) {
+                        return AlertDialog(
+                          title: Text(map["suggestions"]?[i]?["plant_name"]?? "Plantify"),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Image.network(
+                                map["suggestions"][i]["similar_images"][0]["url"] ??
+                                    "https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&h=350",
+                                fit: BoxFit.cover,
+                              ),
+                            ],
                           ),
-                          Spacer(),
-                          Text(
-                            ((map["suggestions"][i]["probability"] as double) *
-                                            100)
-                                        .toStringAsFixed(2) +
-                                    "%" ??
-                                "Unknown",
-                            style: TextStyle(
-                              color: Colors.black.withAlpha(100),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12
-                            ),
-                          )
-                        ],
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text("Cerrar"),
+                            )
+                          ],
+                        );
+                      });
+                    },
+                    child: Container(
+                      // make a beauty decoration for listtile
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white,
                       ),
-                      subtitle: Text(map["suggestions"]?[i]?["plant_details"]?
-                          ["wiki_description"]?["value"]?? "Sin descripción"),
-                      // leading: Image.network(
-                      //   map["suggestions"][i]["similar_images"][0]["url"] ??
-                      //       "https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&h=350",
-                      //   fit: BoxFit.cover,
-                      // ),
+                      margin: const EdgeInsets.only(bottom: 20),
+                      child: ListTile(
+                        leading: Image.network(
+                          map["suggestions"][i]["similar_images"][0]["url"] ??
+                              "https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&h=350",
+                          fit: BoxFit.cover,
+                        ),
+                        title: Row(
+                          children: [
+                            Text(
+                              map["suggestions"][i]["plant_name"],
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Spacer(),
+                            Text(
+                              ((map["suggestions"][i]["probability"] as double) *
+                                              100)
+                                          .toStringAsFixed(2) +
+                                      "%" ??
+                                  "Unknown",
+                              style: TextStyle(
+                                color: Colors.black.withAlpha(100),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12
+                              ),
+                            )
+                          ],
+                        ),
+                        subtitle: Text(map["suggestions"]?[i]?["plant_details"]?
+                            ["wiki_description"]?["value"]?? "Sin descripción disponible"),
+                        // leading: Image.network(
+                        //   map["suggestions"][i]["similar_images"][0]["url"] ??
+                        //       "https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&h=350",
+                        //   fit: BoxFit.cover,
+                        // ),
+                      ),
                     ),
                   ),
               ],

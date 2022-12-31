@@ -17,7 +17,7 @@ class HistorialScreen extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 50),
           children: [
-            
+            Text("No has realizado ninguna búsqueda por el momento")
           ],
         ),
       ),

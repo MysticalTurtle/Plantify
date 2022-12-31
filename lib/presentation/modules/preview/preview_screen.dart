@@ -22,7 +22,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
 
   void _analize() async {
     setState(() => _isLoading = true);
-    const String token = "3IG8pt7WkS75KtlU81fN6sQV07cvqrhDMebn7fWEKTR3WDaf55";
+    const String token = "B6aZ1CtVfrG2T3eJYSpo2jnQb6EZxn8VQhsYNUiOB2B3IOGPWy";
 
     print("path: ${widget.image.path}");
 

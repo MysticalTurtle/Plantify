@@ -6,13 +6,14 @@
  Author: Edson Daniel Salvador Soel
 
  Architecture:
- We have 4 main folers: core, domain, data and presentation
+ We have 4 main folers: core, domain, data and presentation.
+ Initially using clean architecture.
 
  Core:
  Here we have general configuration for the project such as routes, constants, Failure base class and utils
 
  Domain:
- Here we have the entities for the projects, the entities are 
+ Here we have the entities for the projects, the definitions of the request and the usecases
 
  Data:
 
