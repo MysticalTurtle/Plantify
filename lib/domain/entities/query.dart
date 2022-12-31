@@ -5,16 +5,14 @@ import 'package:recog_plantify/domain/entities/plant.dart';
 Query recognitionResponseFromJson(String str) =>
     Query.fromJson(json.decode(str));
 
-String recognitionResponseToJson(Query data) =>
-    json.encode(data.toJson());
+String recognitionResponseToJson(Query data) => json.encode(data.toJson());
 
 class Query {
   Query({
     required this.id,
     required this.customId,
-    required this.images,
-    required this.suggestions,
-    required this.modifiers,
+    this.images,
+    this.suggestions,
     required this.secret,
     required this.failCause,
     required this.countable,
@@ -25,9 +23,8 @@ class Query {
 
   final int id;
   final dynamic customId;
-  final List<Image> images;
-  final List<Plant> suggestions;
-  final List<String> modifiers;
+  final List<Image?>? images;
+  final List<Plant?>? suggestions;
   final String secret;
   final dynamic failCause;
   final bool countable;
@@ -35,28 +32,35 @@ class Query {
   final double isPlantProbability;
   final bool isPlant;
 
-  factory Query.fromJson(Map<String, dynamic> json) =>
-      Query(
-        id: json["id"],
-        customId: json["custom_id"],
-        images: json["images"] != null? List<Image>.from(json["images"].map((x) => Image.fromJson(x))): [],
-        suggestions: List<Plant>.from(
-            json["suggestions"].map((x) => Plant.fromJson(x))),
-        modifiers: List<String>.from(json["modifiers"].map((x) => x)),
-        secret: json["secret"],
-        failCause: json["fail_cause"],
-        countable: json["countable"],
-        feedback: json["feedback"],
-        isPlantProbability: json["is_plant_probability"].toDouble(),
-        isPlant: json["is_plant"],
-      );
+  factory Query.fromJson(Map<String, dynamic> json) {
+    print("Suggestions: ${json["suggestions"]}");
+    print("Images: ${json["images"]}");
+    print("Images: ${json["images"][0]}");
+
+    return Query(
+      id: json["id"],
+      customId: json["custom_id"],
+      images:
+          (json["images"] as List<dynamic>).map<Image>((x) => Image.fromJson(x)).toList() ?? [],
+      suggestions: (json["suggestions"] as List<dynamic>).map<Plant>((x) => Plant.fromJson(x)).toList() ?? [],
+      secret: json["secret"],
+      failCause: json["fail_cause"],
+      countable: json["countable"],
+      feedback: json["feedback"],
+      isPlantProbability: json["is_plant_probability"].toDouble(),
+      isPlant: json["is_plant"],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "custom_id": customId,
-        "images": List<dynamic>.from(images.map((x) => x.toJson())),
-        "suggestions": List<dynamic>.from(suggestions.map((x) => x.toJson())),
-        "modifiers": List<dynamic>.from(modifiers.map((x) => x)),
+        // "images": images != null
+        //     ? List<dynamic>.from(images.map((x) => x.toJson()))
+        //     : null,
+        // "suggestions": false
+        //     ? List<dynamic>.from(suggestions.map((x) => x.toJson()))
+        //     : null,
         "secret": secret,
         "fail_cause": failCause,
         "countable": countable,

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:recog_plantify/core/constants/server.dart';
 import 'package:recog_plantify/core/utils/failure.dart';
 import 'package:recog_plantify/data/models/response/login_response.dart';
 import 'package:recog_plantify/data/models/response/register_response.dart';
@@ -13,7 +14,7 @@ abstract class AuthDataSource {
 }
 
 class AuthDataSourceImpl extends AuthDataSource {
-  final String baseURL = "http://192.168.3.9:3030/api/";
+  final String baseURL = Server.base;
   @override
   Future<LoginResponse> login(String userName, String password) async {
     // const String url = "http://plantify.up.railway.app/api/users/login";

@@ -4,6 +4,7 @@ import 'package:recog_plantify/presentation/modules/auth/register/register_scree
 import 'package:recog_plantify/presentation/modules/home/home_screen.dart';
 import 'package:recog_plantify/presentation/modules/onboarding/onboarding_screen.dart';
 import 'package:recog_plantify/presentation/modules/onboarding/onboarding_last_screen.dart';
+import 'package:recog_plantify/presentation/modules/result/result_screen.dart';
 
 class RouterMain {
   static FluroRouter router = FluroRouter();
@@ -24,10 +25,10 @@ class RouterMain {
       Handler(handlerFunc: (context, params) => const HomeScreen());
 
   
-  // static final Handler _ticketReport = Handler(handlerFunc: (context, params) {
-  //   final Record record = context?.settings?.arguments as Record;
-  //   return TicketReportScreen(record: record);
-  // });
+  static final Handler _result = Handler(handlerFunc: (context, params) {
+    final String response = context?.settings?.arguments as String;
+    return ResultScreen(response: response);
+  });
 
   static void setupRouter() {
     router.define('login', handler: _loginHandler, transitionType: TransitionType.inFromRight);
@@ -38,5 +39,7 @@ class RouterMain {
         handler: _onBoarding4, transitionType: TransitionType.inFromRight);
     router.define('home',
         handler: _home, transitionType: TransitionType.inFromRight);
+    router.define('result',
+        handler: _result, transitionType: TransitionType.inFromRight);
   }
 }

@@ -94,7 +94,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     textColor: AppColors.darkGreen,
                     text: "Omitir",
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, "onboarding4");
+                      Navigator.pushReplacementNamed(context, "onboardingLast");
                     },
                   ),
                   LightButton(

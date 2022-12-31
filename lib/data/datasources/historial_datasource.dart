@@ -1,3 +1,4 @@
+import 'package:recog_plantify/core/constants/server.dart';
 import 'package:recog_plantify/data/models/request/add_record_request.dart';
 import 'package:recog_plantify/data/models/response/add_record_response.dart';
 import 'package:recog_plantify/data/models/response/delete_record_response.dart';
@@ -14,7 +15,7 @@ abstract class HistorialDataSource {
 class HistorialDataSourceImpl extends HistorialDataSource {
   HistorialDataSourceImpl();
 
-  final baseURL = 'http://192.168.3.9:3030/api/';
+  final baseURL = Server.base;
 
   @override
   Future<HistorialResponse> getHistorial(String token) async {
