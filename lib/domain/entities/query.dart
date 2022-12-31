@@ -39,7 +39,7 @@ class Query {
       Query(
         id: json["id"],
         customId: json["custom_id"],
-        images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+        images: json["images"] != null? List<Image>.from(json["images"].map((x) => Image.fromJson(x))): [],
         suggestions: List<Plant>.from(
             json["suggestions"].map((x) => Plant.fromJson(x))),
         modifiers: List<String>.from(json["modifiers"].map((x) => x)),

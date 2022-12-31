@@ -46,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
         }
         if (state is Unauthenticated) {
           debugPrint("Va al Unauthenticated");
-          Navigator.of(context).pushReplacementNamed("login");
+          Navigator.of(context).pushReplacementNamed("onboarding");
           return;
         }
 

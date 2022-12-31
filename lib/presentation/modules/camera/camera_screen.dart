@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -100,7 +102,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
                       if (image == null) return;
 
-                      navigator.push(MaterialPageRoute(builder: (context) => PreviewScreen(imagePath: image!.path)));
+                      navigator.push(MaterialPageRoute(builder: (context) => PreviewScreen(image: File(image!.path))));
 
                     },
                     text: "Tomar una foto",
@@ -115,8 +117,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
                       if (image == null) return;
 
-
-                      navigator.push(MaterialPageRoute(builder: (context) => PreviewScreen(imagePath: image!.path)));
+                      navigator.push(MaterialPageRoute(builder: (context) => PreviewScreen(image: File(image!.path))));
                     },
                     text: "Sube una imagen",
                     icon: Icons.photo,
